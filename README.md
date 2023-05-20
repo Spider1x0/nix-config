@@ -1,2 +1,4 @@
 # nix-config
-Messy nixos config
+## UNDER CONSTRUCTION
+Messy nixos config using snowfall lib
+
