@@ -10,7 +10,7 @@ in {
   config = mkIf cfg.enable {
     networking = {
       firewall = {
-        allowedTCPPorts = [ 80 443 445 47988 ];
+        allowedTCPPorts = [ 80 443 445 47988 3306];
         allowedTCPPortRanges = [{
           from = 1714;
           to = 1764;

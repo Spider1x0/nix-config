@@ -48,7 +48,6 @@
 
   # enable and stuff Wifi section
   wildgoo = {
-    desktop.hyprland.enable = true;
     hardware = {
       firewall.enable = true;
       networking.enable = true;
@@ -96,6 +95,12 @@
     windowManager.xmonad.enable = true;
     desktopManager.xfce.enable = true;
 
+  };
+
+  services.snipe-it = {
+    enable = true;
+    appKeyFile = "/run/snipe-it/appkey";
+    database.createLocally = true;
   };
 
 # hardware = {
