@@ -12,8 +12,6 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
     #Hyprland
-    hyprland.url =
-      "github:hyprwm/Hyprland/2df0d034bc4a18fafb3524401eeeceaa6b23e753";
 
     snowfall-lib = {
       url = "github:snowfallorg/lib";
@@ -34,7 +32,6 @@
       channels-config.allowUnfree = true;
 
       systems.modules = with inputs; [
-        hyprland.nixosModules.default
         home-manager.nixosModules.home-manager
       ];
       # import everything starting from here

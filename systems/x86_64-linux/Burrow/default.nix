@@ -9,7 +9,7 @@
 
   users.users = {
     spider = {
-      initialPassword = "sam20091912";
+      initialPassword = "password";
       isNormalUser = true;
       openssh.authorizedKeys.keys = [ ];
       extraGroups = [ "networkmanager" "wheel" "libvirtd" "video" "input" ];
@@ -48,6 +48,11 @@
 
   # enable and stuff Wifi section
   wildgoo = {
+    desktop.hyprland.enable = true;
+    services = {
+      snipe-it.enable = false;
+      zerotierone.enable = true;
+    };
     hardware = {
       firewall.enable = true;
       networking.enable = true;
@@ -97,11 +102,6 @@
 
   };
 
-  services.snipe-it = {
-    enable = true;
-    appKeyFile = "/run/snipe-it/appkey";
-    database.createLocally = true;
-  };
 
 # hardware = {
 #   opengl = {

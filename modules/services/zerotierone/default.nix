@@ -10,8 +10,15 @@ let
   };
   config = mkIf cfg.enable {
       networking.firewall.allowedUDPPorts = [9696];
+
+
+      networking.nameservers = [ "10.147.20.160" ];
     services.zerotierone = {
       enable = true;
+      port = 9696;
+      joinNetworks = [
+        "1c33c1ced0a3bce1"
+      ];
     };
   };
 }
