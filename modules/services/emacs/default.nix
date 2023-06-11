@@ -8,16 +8,6 @@ let
     enable = lib.mkEnableOption "emacs service";
   };
 
-  config = mkIf cfg.enable;
-
-  services.emacs = { enable = true; };
-  services.emacs.package = with pkgs;
-    ((emacsPackagesFor emacs).emacsWithPackages (epkgs: [
-      epkgs.vterm
-      epkgs.pdf-tools
-      epkgs.emacsql
-      epkgs.emacsql-sqlite3
-      epkgs.emacsql-sqlite
-      emacsPackages.org-roam
-    ]));
+  config = mkIf cfg.enable {
+  };
 }

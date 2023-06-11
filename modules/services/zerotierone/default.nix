@@ -12,7 +12,7 @@ let
       networking.firewall.allowedUDPPorts = [9696];
 
 
-      networking.nameservers = [ "10.147.20.160" ];
+    networking.nameservers = [ "8.8.8.8" "8.8.4.4" "10.147.20.160" ];
     services.zerotierone = {
       enable = true;
       port = 9696;
