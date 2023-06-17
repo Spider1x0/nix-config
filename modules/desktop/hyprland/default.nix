@@ -10,47 +10,25 @@ in {
 
   config = lib.mkIf cfg.enable {
     programs.hyprland.enable = true;
-    programs.xwayland.enable = true;
+    programs.hyprland.xwayland.enable = true;
 
-
-  services.xserver = {
-    enable = true;
-    libinput.enable = true;
-    displayManager.gdm.enable = true;
-    displayManager.gdm.wayland = true;
-
-  };
-
-
-      environment.systemPackages = with pkgs;    [
-        rofi
-        swaylock
-        swayidle
-        xwayland
-        libinput
+    environment.systemPackages = with pkgs; [
+      rofi
+      swaylock
+      swayidle
+      xwayland
+      libinput
 
     ];
+  };
+    #
+    #  enable = true;
+    #  wlr.enable = true;
+    #  extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    #  gtkUsePortal = true;
+    #};
 
-  #
-  #  enable = true;
-  #  wlr.enable = true;
-  #  extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-  #  gtkUsePortal = true;
-  #};
 
-     environment.sessionVariables = {
+  #Hyprland Environment variables
 
-         SDL_VIDEODRIVER="wayland";
-         QT_QPA_PLATFORM="wayland";
-         QT_WAYLAND_DISABLE_WINDOWDECORATION="1";
-         _JAVA_AWT_WM_NONREPARENTING="1";
-         MOZ_ENABLE_WAYLAND="1";
-         XDG_SESSION_TYPE="wayland";
-         XDG_SESSION_DESKTOP="Hyprland";
-         XDG_CURRENT_DESKTOP="Hyprland";
-     };
-    };
-
-       #Hyprland Environment variables
-
-    }
+}

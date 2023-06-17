@@ -3,17 +3,20 @@
 
   inputs = {
     # Core inputs. nixpkgs stable, and unstable.
+    #
     nixpkgs-stable.url="github:nixos/nixpkgs/nixos-22.11";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
+    sops-nix.url = "github:Mic92/sops-nix";
+    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
     #Home manager follows unstable
+    #
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs-unstable";
-
+    # Some stuff that i sue
+    nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
     #Hyprland
-    hyprland.url =
-      "github:hyprwm/Hyprland/2df0d034bc4a18fafb3524401eeeceaa6b23e753";
 
     snowfall-lib = {
       url = "github:snowfallorg/lib";
@@ -34,7 +37,6 @@
       channels-config.allowUnfree = true;
 
       systems.modules = with inputs; [
-        hyprland.nixosModules.default
         home-manager.nixosModules.home-manager
       ];
       # import everything starting from here
