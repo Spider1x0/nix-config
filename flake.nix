@@ -4,17 +4,15 @@
   inputs = {
     # Core inputs. nixpkgs stable, and unstable.
     #
-    nixpkgs-stable.url="github:nixos/nixpkgs/nixos-22.11";
+#    nixpkgs-stable.url="github:nixos/nixpkgs/nixos-22.11";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
-    #Home manager follows unstable
-    #
-   #home-manager.url = "github:nix-community/home-manager";
-   #home-manager.inputs.nixpkgs.follows = "nixpkgs-unstable";
+   home-manager.url = "github:nix-community/home-manager";
+   home-manager.inputs.nixpkgs.follows = "nixpkgs";
     # Some stuff that i sue
-   # nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
+    nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
     #home-manager.url = "github:nix-community/home-manager";
     #home-manager.inputs.nixpkgs.follows = "nixpkgs-unstable";
     # Some stuff that i use
@@ -42,6 +40,22 @@
       #overlay-package-namespace = "wildgoo";
       #Allowing unfree stuff
       channels-config.allowUnfree = true;
+      systems.modules.nixos = with inputs; [
+       #{
+       #  #TODO Convert doom emacs into snowfall module
+       #  environment.systemPackages =
+       #    let
+       #      system = "x86_64-linux";
+       #      doom-emacs = nix-doom-emacs.packages.${system}.default.override {
+       #        doomPrivateDir = ./doom.d;
+       #      };  2
+       #    in [
+       #      doom-emacs
+       #    ];
+       #}
+      #home-manager.nixosModules.home-manager
+  #    nix-doom-emacs.hmModule
+      ];
 
       # import everything starting from here
       src = ./.;

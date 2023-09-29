@@ -1,12 +1,9 @@
 #!/usr/bin/env bash
 
-<<<<<<< HEAD
 
 
 # A simple script to control volume in window managers
 
-=======
->>>>>>> 66a714507e4ba8d2f46234490822a592564a6e4a
 #ctl=/home/spider/.nix-profile/bin/pulseaudio-ctl
 ctl=pamixer
 #alias doom="~/.emacs.d/bin/doom"

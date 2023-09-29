@@ -10,20 +10,15 @@ let
    # system = mkOption { type=types.str; default="x86_64-linux"; description="temp solution for the system";};
   };
 
-  config = mkIf cfg.enable {
-          environment.systemPackages = 
-            let
-              doom-emacs = nix-doom-emacs.packages.x86_64-linux.default.override {
-                doomPrivateDir = ./doom.d;
-              };
-            in [
-              doom-emacs
-            ];
-   #services.emacs = {
+# config = mkIf cfg.enable {
+#       programs.doom-emacs = {
+#       	enable = true;
+#       	doomPrivateDir = ./doom;
+#       };
+#  #services.emacs = {
    #  enable = true;
    #  #package = inputs.nix-doom-emacs.packages.x86_64-linux.doom-emacs.override{
    #    doomPrivateDir = ./doom.d;
    #  };
-    };
+    }
   #};
-}
