@@ -75,7 +75,7 @@
 )
 
 ;;==================================================================================
-;; Org bullet hings config
+;; Org bullet  config
 (setq org-hide-emphasis-markers t)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 ;; Replace * with -

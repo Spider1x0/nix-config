@@ -6,12 +6,12 @@ let
   in
 {
   options.wildgoo.services.emacs = {
-    enable = lib.mkEnableOption "doom emacs servic";
+    enable = lib.mkEnableOption "doom emacs service";
    # system = mkOption { type=types.str; default="x86_64-linux"; description="temp solution for the system";};
   };
 
   config = mkIf cfg.enable {
-          environment.systemPackages = 
+          environment.systemPackages =
             let
               doom-emacs = nix-doom-emacs.packages.x86_64-linux.default.override {
                 doomPrivateDir = ./doom.d;
@@ -19,11 +19,9 @@ let
             in [
               doom-emacs
             ];
-   #services.emacs = {
-   #  enable = true;
-   #  #package = inputs.nix-doom-emacs.packages.x86_64-linux.doom-emacs.override{
-   #    doomPrivateDir = ./doom.d;
-   #  };
+   services.emacs = {
+     enable = true;
+     #package = inputs.nix-doom-emacs.packages.x86_64-linux.doom-emacs.override{
     };
-  #};
+  };
 }
