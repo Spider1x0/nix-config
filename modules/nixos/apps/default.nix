@@ -6,11 +6,11 @@ let
 
   in
 {
-  options.wildgoo.nixos = {
+  options.wildgoo.apps = {
     enable = lib.mkEnableOption "temporary apps module";
   };
   config = mkIf cfg.enable {
-    environment.system.packges = [
+    environment.systemPackages  = with pkgs; [
      tesseract
      discord
      bitwarden
@@ -46,6 +46,7 @@ let
      libratbag
      git
      xsel
+     feh
     #  openssl
     #  libkrb5
      virt-manager
@@ -76,10 +77,10 @@ let
      sqlite
      gcc10
      cmake
-     #emacs28Packages.vterm
      libvterm-neovim
      webcord
      soundux
+     helix
     ];
     };
 }

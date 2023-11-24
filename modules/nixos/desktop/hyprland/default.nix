@@ -9,20 +9,24 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    programs.hyprland.enable = true;
-    programs.hyprland.xwayland.enable = true;
-
+    programs.hyprland = {
+      enable = true;
+      xwayland.enable = true;
+    };
+    # TODO: Convert some of these packages into modules
     environment.systemPackages = with pkgs; [
-      rofi
+      rofi-wayland
+      wofi
+      mako
+      #grimblast
       swaylock
       swayidle
-      xwayland
+      #xwayland
       libinput
-
+      #TODO Must be converted into a module
+      waybar
     ];
   };
-    #
-    #  enable = true;
     #  wlr.enable = true;
     #  extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
     #  gtkUsePortal = true;

@@ -7,6 +7,7 @@
   # You can import other NixOS modules here
   imports = [ ./hardware.nix ];
 
+  #TODO: Create a module for the users
   users.users = {
     spider = {
       initialPassword = "password";
@@ -17,9 +18,8 @@
     };
   };
 
-
-nixpkgs.config.allowUnfree = true; 
-
+#TODO: Create libvirtd module
+virtualisation.libvirtd.enable = true;
   # TODO Create modules for these programs
   programs = {
     noisetorch.enable = true;
@@ -54,10 +54,13 @@ nixpkgs.config.allowUnfree = true;
 
   # enable and stuff Wifi section
   wildgoo = {
+    apps.enable=true;
     desktop.hyprland.enable = true;
     services = {
       snipe-it.enable = false;
       zerotierone.enable = false;
+      emacs.enable = true;
+      udev.enable = true;
     };
     hardware = {
       firewall.enable = true;
@@ -80,7 +83,7 @@ nixpkgs.config.allowUnfree = true;
   # TODO Remove this piece of code
   # DONE Repalced with a module
  boot = {
-   kernelPackages = with pkgs.linuxKernel.packages; linux_6_4;
+   kernelPackages = with pkgs.linuxKernel.packages; linux_6_5;
    loader = {
      systemd-boot.enable = true;
      efi.canTouchEfiVariables = true;
@@ -107,7 +110,7 @@ nixpkgs.config.allowUnfree = true;
     displayManager.gdm.enable = true;
     windowManager.xmonad.enable = true;
     desktopManager.xfce.enable = true;
-
+    windowManager.awesome.enable = true;
   };
 
 
