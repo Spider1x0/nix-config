@@ -3,7 +3,7 @@ with lib;
 with inputs;
 
 #Description: a module for doom emacs as a service,
-#TODO: Do some cleaning to the code
+#TODO: Do some cleaning for the code
 let
   cfg = config.wildgoo.services.emacs;
   doom-emacs = nix-doom-emacs.packages.x86_64-linux.default.override {
@@ -15,11 +15,6 @@ let
     enable = lib.mkEnableOption "doom emacs service";
   };
   config = mkIf cfg.enable {
-   services.emacs = {
-
-     enable = true;
-     package = doom-emacs;
-
-  };
+    environment.systemPackages = [doom-emacs];
 };
 }

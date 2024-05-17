@@ -10,27 +10,30 @@ let
     enable = lib.mkEnableOption "temporary apps module";
   };
   config = mkIf cfg.enable {
+#TODO Remove as many apps as you can and create Modules for them
     environment.systemPackages  = with pkgs; [
      tesseract
-     discord
-     bitwarden
+     #discord
+    # bitwarden
+     bitwarden-cli
     firefox
      qutebrowser
      axel
      yt-dlp
      slides
-     bookworm
+     #bookworm
       #Games
      appimage-run
      wootility
      lutris
      wine
-     xivlauncher
+     #xivlauncher
     #Visual Stuff
      flameshot
      mpv
      ani-cli
      piper
+     solaar
     #Audio
      easyeffects
      spotify
@@ -39,6 +42,7 @@ let
      rofi
      #rofi-wayland
      #waylanda
+     imhex
      ffmpeg
      libratbag
      activate-linux
@@ -47,6 +51,7 @@ let
      git
      xsel
      feh
+     hyprpaper
     #  openssl
     #  libkrb5
      virt-manager
@@ -65,12 +70,13 @@ let
      tmux
      plasma5Packages.kdeconnect-kde
      alacritty
+     wezterm
      neofetch
      htop
      spice
     # tutanota-desktop
     #notes
-     obsidian
+     #obsidian
     #7seas
      deluge
     #dev_temp
@@ -79,8 +85,10 @@ let
      cmake
      libvterm-neovim
      webcord
-     soundux
+    # soundux
      helix
+     anydesk
+     gparted
     ];
     };
 }

@@ -10,6 +10,10 @@ with lib;
 
     config = mkIf cfg.enable {
     virtualisation.libvirtd.enable = true;
+	environment.systemPackages = [
+	pkgs.spice
+	pkgs.win-spice
+];
   };
 
 

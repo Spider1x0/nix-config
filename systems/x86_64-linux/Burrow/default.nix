@@ -13,7 +13,7 @@
       initialPassword = "password";
       isNormalUser = true;
       openssh.authorizedKeys.keys = [ ];
-      extraGroups = [ "networkmanager" "wheel" "libvirtd" "video" "input" ];
+      extraGroups = [ "networkmanager" "wheel" "libvirtd" "video" "input" "syncthing"];
       packages = [ pkgs.wildgoo.ocr pkgs.wildgoo.volumescript ];
     };
   };
@@ -22,6 +22,7 @@
 virtualisation.libvirtd.enable = true;
   # TODO Create modules for these programs
   programs = {
+    kdeconnect.enable = true;
     noisetorch.enable = true;
     #light.enable = true;
     dconf.enable = true;
@@ -59,6 +60,7 @@ virtualisation.libvirtd.enable = true;
     services = {
       snipe-it.enable = false;
       zerotierone.enable = false;
+      syncthing.enable = true;
       emacs.enable = true;
       udev.enable = true;
     };
@@ -83,7 +85,7 @@ virtualisation.libvirtd.enable = true;
   # TODO Remove this piece of code
   # DONE Repalced with a module
  boot = {
-   kernelPackages = with pkgs.linuxKernel.packages; linux_6_5;
+   kernelPackages = with pkgs.linuxKernel.packages; linux_6_7;
    loader = {
      systemd-boot.enable = true;
      efi.canTouchEfiVariables = true;
@@ -96,10 +98,12 @@ virtualisation.libvirtd.enable = true;
   i18n.defaultLocale = "en_US.utf8";
 
   services.ratbagd.enable = true;
+  services.fwupd.enable = true;
+  security.polkit.enable = true;
   services.openssh = {
     enable = true;
     settings.PermitRootLogin = "no";
-    settings.PasswordAuthentication = false;
+    settings.PasswordAuthentication = true;
   };
 
   services.xserver = {

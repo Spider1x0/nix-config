@@ -16,7 +16,9 @@ in
   config = mkIf cfg.enable {
     services.udev = {
       enable = true;
-      packages = with pkgs; [wooting-udev-rules];
+      packages = with pkgs; [wooting-udev-rules
+                             logitech-udev-rules
+                            ];
     };
   };
 

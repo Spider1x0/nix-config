@@ -22,6 +22,7 @@
 (package! ranger)
 (package! doom-themes)
 (package! org-roam :built-in 'prefer)
+(package! org-roam-ui)
 (package! pomodoro)
 (package! org-bullets)
 (package! smooth-scrolling)

@@ -14,6 +14,8 @@ let
   config = mkIf cfg.enable {
     services.syncthing ={
       enable = true;
-    };
+      user = "spider";
+      dataDir = "/home/spider/syncthing";
+          };
   };
 }

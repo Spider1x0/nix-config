@@ -18,7 +18,7 @@ in {
       rofi-wayland
       wofi
       mako
-      #grimblast
+      grimblast
       swaylock
       swayidle
       #xwayland
