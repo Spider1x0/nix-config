@@ -2,5 +2,5 @@
 
 final: prev:
 {
-    inherit (channels.nixpkgs-unstable) wooting-udev-rules;
+    #inherit (channels.nixpkgs) wooting-udev-rules;
 }

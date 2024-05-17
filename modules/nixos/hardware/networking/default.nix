@@ -9,8 +9,12 @@ let
         ssid="Abo Sami 5G";
         psk = "9112c3b95abf2a116539b696e689306324d3371218bf6993434d09eb602922a4";
       };
+     huwaei = {
+      ssid ="HUAWEI";
+      psk ="6f41725a9d9d280b6b020e40d3d066997fb78ac58f906ec94b80272af3923bd1";
     };
-  in
+  };
+    in
 {
   options.wildgoo.hardware.networking = {
     enable = lib.mkEnableOption " Enable wpa supplicant";
@@ -19,6 +23,7 @@ let
 
   networking.networkmanager.enable = false;
   networking.wireless.enable = true;
+  networking.hosts = { "209.38.180.44" = ["raven.local"]; };
   # networking.wireless.interfaces = [ "wlp6s0" ];
   # networking.wireless.driver = "rtw89";
   networking.wireless.userControlled.enable = true;
@@ -33,10 +38,13 @@ let
       #psk =   "9566e8de34e93086f669d988e2acff1341188036c261ea787019523c82783f82";
     };
 
-    Worldwide = {
+    ":skullemoji:"= {
       pskRaw =
-        "77586a7990c93ee33000eda10ca9baec3e0131fb116f209f9c5fbb2819a942af";
+        "0b1d359fd6c71b546e195f08605df857bea1125d4700ba27a094378bbc1a29b7";
     };
+    HUAWEI= {
+      pskRaw = networks.huwaei.psk;
+          };
 
     Student_Bootcamp = {
       pskRaw =

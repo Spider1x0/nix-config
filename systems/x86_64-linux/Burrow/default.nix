@@ -7,18 +7,22 @@
   # You can import other NixOS modules here
   imports = [ ./hardware.nix ];
 
+  #TODO: Create a module for the users
   users.users = {
     spider = {
       initialPassword = "password";
       isNormalUser = true;
       openssh.authorizedKeys.keys = [ ];
-      extraGroups = [ "networkmanager" "wheel" "libvirtd" "video" "input" ];
+      extraGroups = [ "networkmanager" "wheel" "libvirtd" "video" "input" "syncthing"];
       packages = [ pkgs.wildgoo.ocr pkgs.wildgoo.volumescript ];
     };
   };
 
+#TODO: Create libvirtd module
+virtualisation.libvirtd.enable = true;
   # TODO Create modules for these programs
   programs = {
+    kdeconnect.enable = true;
     noisetorch.enable = true;
     #light.enable = true;
     dconf.enable = true;
@@ -31,30 +35,34 @@
     };
   };
 
-  nix = {
-    # This will add each flake input as a registry
-    # To make nix3 commands consistent with your flake
-    registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
-
-    # This will additionally add your inputs to the system's legacy channels
-    # Making legacy nix commands consistent as well, awesome!
-    nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}")
-      config.nix.registry;
-
-    settings = {
-      # Enable flakes and new 'nix' command
-      experimental-features = "nix-command flakes";
-      # Deduplicate and optimize nix store
-      auto-optimise-store = true;
-    };
-  };
+# nix = {
+#   # This will add each flake input as a registry
+#   # To make nix3 commands consistent with your flake
+#   registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
+#
+#   # This will additionally add your inputs to the system's legacy channels
+#   # Making legacy nix commands consistent as well, awesome!
+#   nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}")
+#     config.nix.registry;
+#
+#   settings = {
+#     # Enable flakes and new 'nix' command
+#     experimental-features = "nix-command flakes";
+#     # Deduplicate and optimize nix store
+#     auto-optimise-store = true;
+#   };
+# };
 
   # enable and stuff Wifi section
   wildgoo = {
+    apps.enable=true;
     desktop.hyprland.enable = true;
     services = {
       snipe-it.enable = false;
       zerotierone.enable = false;
+      syncthing.enable = true;
+      emacs.enable = true;
+      udev.enable = true;
     };
     hardware = {
       firewall.enable = true;
@@ -77,7 +85,7 @@
   # TODO Remove this piece of code
   # DONE Repalced with a module
  boot = {
-   kernelPackages = with pkgs.linuxKernel.packages; linux_6_4;
+   kernelPackages = with pkgs.linuxKernel.packages; linux_6_7;
    loader = {
      systemd-boot.enable = true;
      efi.canTouchEfiVariables = true;
@@ -90,10 +98,12 @@
   i18n.defaultLocale = "en_US.utf8";
 
   services.ratbagd.enable = true;
+  services.fwupd.enable = true;
+  security.polkit.enable = true;
   services.openssh = {
     enable = true;
-    permitRootLogin = "no";
-    passwordAuthentication = false;
+    settings.PermitRootLogin = "no";
+    settings.PasswordAuthentication = true;
   };
 
   services.xserver = {
@@ -104,7 +114,7 @@
     displayManager.gdm.enable = true;
     windowManager.xmonad.enable = true;
     desktopManager.xfce.enable = true;
-
+    windowManager.awesome.enable = true;
   };
 
 
