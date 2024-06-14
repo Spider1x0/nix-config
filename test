@@ -1,0 +1,377 @@
+modified   flake.lock
+@@ -256,11 +256,11 @@
+         ]
+       },
+       "locked": {
+-        "lastModified": 1698392685,
+-        "narHash": "sha256-yx/sbRneR2AfSAeAMqUu0hoVJdjh+qhl/7dkirp8yo8=",
++        "lastModified": 1702203126,
++        "narHash": "sha256-4BhN2Vji19MzRC7SUfPZGmtZ2WZydQeUk/ogfRBIZMs=",
+         "owner": "nix-community",
+         "repo": "home-manager",
+-        "rev": "1369d2cefb6f128c30e42fabcdebbacc07e18b3f",
++        "rev": "defbb9c5857e157703e8fc7cf3c2ceb01cb95883",
+         "type": "github"
+       },
+       "original": {
+@@ -298,11 +298,11 @@
+         "ws-butler": "ws-butler"
+       },
+       "locked": {
+-        "lastModified": 1697814738,
+-        "narHash": "sha256-mwQmykamvRuHmO6I2VTm8+TOIhhmgy2g5YrMjoCHawY=",
++        "lastModified": 1701264882,
++        "narHash": "sha256-MBXR7x7Ua8qystlGr+lenwjQd7dsFNFpEFmtHhh10zM=",
+         "owner": "nix-community",
+         "repo": "nix-doom-emacs",
+-        "rev": "c1c99cf41694440d76e31126dc394f52faeb691e",
++        "rev": "f7413022370f24bb53cb450bfb2803233510113e",
+         "type": "github"
+       },
+       "original": {
+@@ -344,11 +344,11 @@
+     },
+     "nixpkgs-stable": {
+       "locked": {
+-        "lastModified": 1697929210,
+-        "narHash": "sha256-RkQZif6QhswEwv7484mrKfIU8XmIWm+ED6llbr4IyxM=",
++        "lastModified": 1702148972,
++        "narHash": "sha256-h2jODFP6n+ABrUWcGRSVPRFfLOkM9TJ2pO+h+9JcaL0=",
+         "owner": "NixOS",
+         "repo": "nixpkgs",
+-        "rev": "fb000224952bf7749a9e8b3779104ef7ea4465c8",
++        "rev": "b8f33c044e51de6dde3ad80a9676945e0e4e3227",
+         "type": "github"
+       },
+       "original": {
+@@ -360,11 +360,11 @@
+     },
+     "nixpkgs_2": {
+       "locked": {
+-        "lastModified": 1698318101,
+-        "narHash": "sha256-gUihHt3yPD7bVqg+k/UVHgngyaJ3DMEBchbymBMvK1E=",
++        "lastModified": 1709703039,
++        "narHash": "sha256-6hqgQ8OK6gsMu1VtcGKBxKQInRLHtzulDo9Z5jxHEFY=",
+         "owner": "nixos",
+         "repo": "nixpkgs",
+-        "rev": "63678e9f3d3afecfeafa0acead6239cdb447574c",
++        "rev": "9df3e30ce24fd28c7b3e2de0d986769db5d6225d",
+         "type": "github"
+       },
+       "original": {
+@@ -557,11 +557,11 @@
+         "nixpkgs-stable": "nixpkgs-stable"
+       },
+       "locked": {
+-        "lastModified": 1698273636,
+-        "narHash": "sha256-swsqg/ckSVJnravx7ie9NFQSKIH27owtlk0wh4+xStk=",
++        "lastModified": 1702177193,
++        "narHash": "sha256-J2409SyXROoUHYXVy9h4Pj0VU8ReLuy/mzBc9iK4DBg=",
+         "owner": "Mic92",
+         "repo": "sops-nix",
+-        "rev": "014e44d334a39481223a5d163530d4c4ca2e75cb",
++        "rev": "d806e546f96c88cd9f7d91c1c19ebc99ba6277d9",
+         "type": "github"
+       },
+       "original": {
+modified   flake.nix
+@@ -6,7 +6,6 @@
+
+       #nixpkgs-stable.url="github:nixos/nixpkgs/nixos-23.05";
+       nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+-
+       sops-nix.url = "github:Mic92/sops-nix";
+       sops-nix.inputs.nixpkgs.follows = "nixpkgs";
+       home-manager.url = "github:nix-community/home-manager";
+modified   modules/nixos/apps/default.nix
+@@ -10,27 +10,30 @@ let
+     enable = lib.mkEnableOption "temporary apps module";
+   };
+   config = mkIf cfg.enable {
++#TODO Remove as many apps as you can and create Modules for them
+     environment.systemPackages  = with pkgs; [
+      tesseract
+-     discord
+-     bitwarden
++     #discord
++    # bitwarden
++     bitwarden-cli
+     firefox
+      qutebrowser
+      axel
+      yt-dlp
+      slides
+-     bookworm
++     #bookworm
+       #Games
+      appimage-run
+      wootility
+      lutris
+      wine
+-     xivlauncher
++     #xivlauncher
+     #Visual Stuff
+      flameshot
+      mpv
+      ani-cli
+      piper
++     solaar
+     #Audio
+      easyeffects
+      spotify
+@@ -39,6 +42,7 @@ let
+      rofi
+      #rofi-wayland
+      #waylanda
++     imhex
+      ffmpeg
+      libratbag
+      activate-linux
+@@ -47,6 +51,7 @@ let
+      git
+      xsel
+      feh
++     hyprpaper
+     #  openssl
+     #  libkrb5
+      virt-manager
+@@ -65,12 +70,13 @@ let
+      tmux
+      plasma5Packages.kdeconnect-kde
+      alacritty
++     wezterm
+      neofetch
+      htop
+      spice
+     # tutanota-desktop
+     #notes
+-     obsidian
++     #obsidian
+     #7seas
+      deluge
+     #dev_temp
+@@ -79,8 +85,10 @@ let
+      cmake
+      libvterm-neovim
+      webcord
+-     soundux
++    # soundux
+      helix
++     anydesk
++     gparted
+     ];
+     };
+ }
+modified   modules/nixos/desktop/hyprland/default.nix
+@@ -18,7 +18,7 @@ in {
+       rofi-wayland
+       wofi
+       mako
+-      #grimblast
++      grimblast
+       swaylock
+       swayidle
+       #xwayland
+modified   modules/nixos/hardware/networking/default.nix
+@@ -9,8 +9,12 @@ let
+         ssid="Abo Sami 5G";
+         psk = "9112c3b95abf2a116539b696e689306324d3371218bf6993434d09eb602922a4";
+       };
++     huwaei = {
++      ssid ="HUAWEI";
++      psk ="6f41725a9d9d280b6b020e40d3d066997fb78ac58f906ec94b80272af3923bd1";
+     };
+-  in
++  };
++    in
+ {
+   options.wildgoo.hardware.networking = {
+     enable = lib.mkEnableOption " Enable wpa supplicant";
+@@ -19,6 +23,7 @@ let
+
+   networking.networkmanager.enable = false;
+   networking.wireless.enable = true;
++  networking.hosts = { "209.38.180.44" = ["raven.local"]; };
+   # networking.wireless.interfaces = [ "wlp6s0" ];
+   # networking.wireless.driver = "rtw89";
+   networking.wireless.userControlled.enable = true;
+@@ -33,10 +38,13 @@ let
+       #psk =   "9566e8de34e93086f669d988e2acff1341188036c261ea787019523c82783f82";
+     };
+
+-    Worldwide = {
++    ":skullemoji:"= {
+       pskRaw =
+-        "77586a7990c93ee33000eda10ca9baec3e0131fb116f209f9c5fbb2819a942af";
++        "0b1d359fd6c71b546e195f08605df857bea1125d4700ba27a094378bbc1a29b7";
+     };
++    HUAWEI= {
++      pskRaw = networks.huwaei.psk;
++          };
+
+     Student_Bootcamp = {
+       pskRaw =
+modified   modules/nixos/services/emacs/default.nix
+@@ -3,7 +3,7 @@ with lib;
+ with inputs;
+
+ #Description: a module for doom emacs as a service,
+-#TODO: Do some cleaning to the code
++#TODO: Do some cleaning for the code
+ let
+   cfg = config.wildgoo.services.emacs;
+   doom-emacs = nix-doom-emacs.packages.x86_64-linux.default.override {
+@@ -15,11 +15,6 @@ let
+     enable = lib.mkEnableOption "doom emacs service";
+   };
+   config = mkIf cfg.enable {
+-   services.emacs = {
+-
+-     enable = true;
+-     package = doom-emacs;
+-
+-  };
++    environment.systemPackages = [doom-emacs];
+ };
+ }
+modified   modules/nixos/services/emacs/doom.d/packages.el
+@@ -22,6 +22,7 @@
+ (package! ranger)
+ (package! doom-themes)
+ (package! org-roam :built-in 'prefer)
++(package! org-roam-ui)
+ (package! pomodoro)
+ (package! org-bullets)
+ (package! smooth-scrolling)
+modified   modules/nixos/services/libvirt/default.nix
+@@ -10,6 +10,10 @@ with lib;
+
+     config = mkIf cfg.enable {
+     virtualisation.libvirtd.enable = true;
++	environment.systemPackages = [
++	pkgs.spice
++	pkgs.win-spice
++];
+   };
+
+
+modified   modules/nixos/services/syncthing/default.nix
+@@ -14,6 +14,8 @@ let
+   config = mkIf cfg.enable {
+     services.syncthing ={
+       enable = true;
+-    };
++      user = "spider";
++      dataDir = "/home/spider/syncthing";
++          };
+   };
+ }
+modified   modules/nixos/services/udev/default.nix
+@@ -16,7 +16,9 @@ in
+   config = mkIf cfg.enable {
+     services.udev = {
+       enable = true;
+-      packages = with pkgs; [wooting-udev-rules];
++      packages = with pkgs; [wooting-udev-rules
++                             logitech-udev-rules
++                            ];
+     };
+   };
+
+deleted    modules/nixos/system/default.nix
+@@ -1,22 +0,0 @@
+-{ config, lib, pkgs, ... }:
+-
+-with lib;
+-let cfg = config.wildgoo.system.boot;
+-  in
+-{
+-  options.wildgoo.system.boot = {
+-    enable = lib.mkEnableOption "nix boot options";
+-  };
+-
+-  config = mkIf cfg.enable {
+-
+-
+-    boot.loader = {
+-      systemd-boot.enable = true;
+-      efi.canTouchEfiVariables = true;
+-      efi.efiSysMountPoint = "/boot/efi";
+-    };
+-  };
+-
+-
+-}
+modified   systems/x86_64-linux/Burrow/default.nix
+@@ -13,7 +13,7 @@
+       initialPassword = "password";
+       isNormalUser = true;
+       openssh.authorizedKeys.keys = [ ];
+-      extraGroups = [ "networkmanager" "wheel" "libvirtd" "video" "input" ];
++      extraGroups = [ "networkmanager" "wheel" "libvirtd" "video" "input" "syncthing"];
+       packages = [ pkgs.wildgoo.ocr pkgs.wildgoo.volumescript ];
+     };
+   };
+@@ -22,6 +22,7 @@
+ virtualisation.libvirtd.enable = true;
+   # TODO Create modules for these programs
+   programs = {
++    kdeconnect.enable = true;
+     noisetorch.enable = true;
+     #light.enable = true;
+     dconf.enable = true;
+@@ -59,6 +60,7 @@ virtualisation.libvirtd.enable = true;
+     services = {
+       snipe-it.enable = false;
+       zerotierone.enable = false;
++      syncthing.enable = true;
+       emacs.enable = true;
+       udev.enable = true;
+     };
+@@ -83,7 +85,7 @@ virtualisation.libvirtd.enable = true;
+   # TODO Remove this piece of code
+   # DONE Repalced with a module
+  boot = {
+-   kernelPackages = with pkgs.linuxKernel.packages; linux_6_5;
++   kernelPackages = with pkgs.linuxKernel.packages; linux_6_7;
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+@@ -96,10 +98,12 @@ virtualisation.libvirtd.enable = true;
+   i18n.defaultLocale = "en_US.utf8";
+
+   services.ratbagd.enable = true;
++  services.fwupd.enable = true;
++  security.polkit.enable = true;
+   services.openssh = {
+     enable = true;
+     settings.PermitRootLogin = "no";
+-    settings.PasswordAuthentication = false;
++    settings.PasswordAuthentication = true;
+   };
+
+   services.xserver = {
+modified   systems/x86_64-linux/Burrow/hardware.nix
+@@ -29,6 +29,11 @@
+       fsType = "ext4";
+     };
+
++  fileSystems."/mnt/lin_nvme" =
++    { device = "/dev/disk/by-uuid/4da651cb-52a8-4c20-84e1-dbd594bf3a02";
++      fsType = "ext4";
++    };
++
+   swapDevices =
+     [ { device = "/dev/disk/by-uuid/7ededb82-b8dc-4a82-83af-ff09ed4ae3b1"; }
+     ];
+@@ -38,8 +43,8 @@
+   # still possible to use this option, but it's recommended to use it in conjunction
+   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
+   networking.useDHCP = lib.mkDefault true;
+-  # networking.interfaces.enp9s0.useDHCP = lib.mkDefault true;
+-  # networking.interfaces.wlp6s0.useDHCP = lib.mkDefault true;
++  # networking.interfaces.enp7s0.useDHCP = lib.mkDefault true;
++  # networking.interfaces.wlp4s0.useDHCP = lib.mkDefault true;
+
+   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;

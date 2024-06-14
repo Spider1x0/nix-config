@@ -18,10 +18,10 @@
 
 
 # # TODO: Set your username
-# home = {
-#   username = "spider";
-#   homeDirectory = "/home/spider";
-# };
+ home = {
+   username = "spider";
+   homeDirectory = "/home/spider";
+ };
 #
 # # Add stuff for your user as you see fit:
 # # programs.neovim.enable = true;

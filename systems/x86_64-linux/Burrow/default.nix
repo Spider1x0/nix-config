@@ -55,13 +55,21 @@ virtualisation.libvirtd.enable = true;
 
   # enable and stuff Wifi section
   wildgoo = {
+    editors = { 
+
+	emacs = { 
+		enable = true;
+		#doom.enable = true;
+	};
+ };
     apps.enable=true;
     desktop.hyprland.enable = true;
     services = {
+
       snipe-it.enable = false;
       zerotierone.enable = false;
       syncthing.enable = true;
-      emacs.enable = true;
+      emacs.enable = false;
       udev.enable = true;
     };
     hardware = {
@@ -77,7 +85,12 @@ virtualisation.libvirtd.enable = true;
   security.pam.services.swaylock = { };
 
   # Environment stuff
-  environment = { variables = { EDITOR = "emacsclient -c "; }; };
+  environment = { variables =
+    { EDITOR = "emacsclient -c ";
+      XDG_CONFIG_HOME = "$HOME/.config";
+    }
+
+                  ; };
 
   networking.hostName = "Burrow";
 
@@ -85,7 +98,7 @@ virtualisation.libvirtd.enable = true;
   # TODO Remove this piece of code
   # DONE Repalced with a module
  boot = {
-   kernelPackages = with pkgs.linuxKernel.packages; linux_6_7;
+   kernelPackages = with pkgs.linuxKernel.packages; linux_6_9;
    loader = {
      systemd-boot.enable = true;
      efi.canTouchEfiVariables = true;
@@ -146,10 +159,11 @@ virtualisation.libvirtd.enable = true;
   #services.xserver.desktopManager.xfce.enable = true;
   #TODO Convert this piece to a module
   # Configure keymap in X11
-  services.xserver = {
+  #Vservices.xserver.xkb.variant
+  services.xserver.xkb = {
     layout = "us,ara";
-    xkbVariant = "";
-    xkbOptions = "grp:alt_shift_toggle";
+    variant = "";
+    options = "grp:alt_shift_toggle";
 
   };
 

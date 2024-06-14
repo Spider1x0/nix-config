@@ -5,23 +5,24 @@
 { config, lib, pkgs, inputs, ... }:
 
 with lib;
+with lib.wildgoo;
 let cfg = config.wildgoo.editors.emacs;
     configDir = config.dotfiles.configDir;
 in {
-  options.wildgoo.editors= {
-    enable = mkBoolOpt false;
-    doom = rec {
-      enable = mkBoolOpt false;
-      forgeUrl = mkOpt types.str "https://github.com";
-      repoUrl = mkOpt types.str "${forgeUrl}/doomemacs/doomemacs";
-      configRepoUrl = mkOpt types.str "${forgeUrl}/hlissner/doom-emacs-private";
-    };
+  options.wildgoo.editors.emacs = {
+    enable = mkEnableOption "Emacs module";
+   doom = rec {
+     enable = mkBoolOpt true;
+   # forgeUrl = mkOpt types.str "https://github.com"; 
+   # repoUrl = mkOpt types.str "${forgeUrl}/doomemacs/doomemacs";
+   # configRepoUrl = mkOpt types.str "${forgeUrl}/spider1x0/doom.d";
+   };
   };
 
   config = mkIf cfg.enable {
-    nixpkgs.overlays = [ inputs.emacs-overlay.overlay ];
+    #nixpkgs.overlays = [ inputs.emacs-overlay.overlay ];
 
-    environment.systemPackegs = with pkgs; [
+    environment.systemPackages = with pkgs; [
       ## Emacs itself
       binutils       # native-comp needs 'as', provided by this
       # 28.2 + native-comp
@@ -51,22 +52,22 @@ in {
       texlive.combined.scheme-medium
       # :lang beancount
       beancount
-      unstable.fava  # HACK Momentarily broken on nixos-unstable
+      fava  # HACK Momentarily broken on nixos-unstable
     ];
 
-    env.PATH = [ "$XDG_CONFIG_HOME/emacs/bin" ];
+    #env.PATH = [ "$XDG_CONFIG_HOME/emacs/bin" ];
 
    # modules.shell.zsh.rcFiles = [ "${configDir}/emacs/aliases.zsh" ];
 
     fonts.fonts = [ pkgs.emacs-all-the-icons-fonts ];
 
-    system.userActivationScripts = mkIf cfg.doom.enable {
-      installDoomEmacs = ''
-        if [ ! -d "$XDG_CONFIG_HOME/emacs" ]; then
-           git clone --depth=1 --single-branch "${cfg.doom.repoUrl}" "$XDG_CONFIG_HOME/emacs"
-           git clone "${cfg.doom.configRepoUrl}" "$XDG_CONFIG_HOME/doom"
-        fi
-      '';
-    };
+#   system.userActivationScripts = mkIf cfg.doom.enable {
+#     installDoomEmacs = ''
+#       if [ ! -d "$XDG_CONFIG_HOME/emacs" ]; then
+#          git clone --depth=1 --single-branch "${cfg.doom.repoUrl}" "$XDG_CONFIG_HOME/emacs"
+#          git clone "${cfg.doom.configRepoUrl}" "$XDG_CONFIG_HOME/doom"
+#       fi
+#     '';
+#   };
   };
 }

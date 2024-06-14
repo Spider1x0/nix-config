@@ -19,7 +19,7 @@ in {
       wofi
       mako
       grimblast
-      swaylock
+	swaylock
       swayidle
       #xwayland
       libinput
